@@ -123,8 +123,7 @@ int main() {
         if (webcam.read(image) == NULL) // if webcam is disconnected...
             break; // terminate the program
         if (rectangleDrawn) {
-            increaseContrast(image,1.2);
-			sharpen(image,image);
+            //increaseContrast(image,1.5);
             if (firstPass) {
                 initialize(image);
                 firstPass = false;
