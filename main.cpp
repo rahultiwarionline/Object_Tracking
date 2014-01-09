@@ -18,10 +18,10 @@ cv::MatND colorhist; // stores the histogram of the object being tracked
 int minSat = 15;     // if pixel saturation is under this value, the pixel
                      // shouldn't be processed
 
-cv::Point point1, point2;
-cv::Rect rect;
-bool drag = false;
-bool rectangleDrawn = false;
+cv::Point point1, point2; // the two points used to draw the rectangle
+cv::Rect rect; // stores the drawn rectangle
+bool drag = false; // test if user is dragging the mouse
+bool rectangleDrawn = false; // test if a rectangle has been drawn
 
 void mouseEvent(int event, int x, int y, int flags, void* param) {
     if (event == CV_EVENT_LBUTTONDOWN && !drag && !rectangleDrawn) {
@@ -49,12 +49,13 @@ void mouseEvent(int event, int x, int y, int flags, void* param) {
     }
 }
 
-
+// function to convert integer to string (used in printCoordinate)
 string convertInt(int number) {
     std::stringstream ss;
     ss << number;
     return ss.str();
 }
+// prints the coordinate of the drawn rectangle
 void printCoordinate(cv::Mat &image) {
     int x_coordinate = rect.x+rect.width/2;
     int y_coordinate = rect.y+rect.height/2;
@@ -71,7 +72,7 @@ void sharpen(const cv::Mat &image, cv::Mat &result, int strength=1.0) {
     for (int i=0; i<strength; i++){
         // Construct kernel (all entries initalized to 0)
         cv::Mat kernel(3,3,CV_32F,cv::Scalar(0));
-        // assigns kernel values
+        // assign kernel values
         kernel.at<float>(1,1) = 5.0;
         kernel.at<float>(0,1) = -1.0;
         kernel.at<float>(2,1) = -1.0;
@@ -81,6 +82,7 @@ void sharpen(const cv::Mat &image, cv::Mat &result, int strength=1.0) {
         cv::filter2D(image,result,image.depth(),kernel);
     }
 }
+// increases the image's contrast to make object detection easier
 void increaseContrast(cv::Mat &image, float alpha) {
     cv::Mat new_image = cv::Mat::zeros(image.size(),image.type());
     for (int y=0; y<image.rows; y++) {
@@ -122,14 +124,14 @@ int main() {
     while(keyCheck != 13) { // while "Enter" key not pressed...
         if (webcam.read(image) == NULL) // if webcam is disconnected...
             break; // terminate the program
-        if (rectangleDrawn) {
-            increaseContrast(image,1.2);
-			sharpen(image,image);
-            if (firstPass) {
-                initialize(image);
-                firstPass = false;
+        if (rectangleDrawn) { // if a rectangle has been drawn...
+            increaseContrast(image,1.2); // increase the image's contrast
+			sharpen(image,image); // sharpen the image
+            if (firstPass) { // if image has not been initialized...
+                initialize(image); // initialize the image
+                firstPass = false; // image has been initialized
             }
-            else drawNewRectangle(image,rect);
+            else drawNewRectangle(image,rect); // update the rectangle
         }
         cv::namedWindow("Processed Image"); // create a window in which to display the video
         cv::imshow("Processed Image",image); // display image in the "result" window
