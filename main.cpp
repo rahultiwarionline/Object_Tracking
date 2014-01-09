@@ -57,15 +57,15 @@ string convertInt(int number) {
 }
 // prints the coordinate of the drawn rectangle
 void printCoordinate(cv::Mat &image) {
-    int x_coordinate = rect.x+rect.width/2;
-    int y_coordinate = rect.y+rect.height/2;
-    std::string coordinate = "(" + convertInt(x_coordinate) + "," + convertInt(y_coordinate) + ")";
-    int fontface = cv::FONT_HERSHEY_SIMPLEX;
-    double scale = 0.6;
-    int thickness = 2;
-    printf("(%i,%i)\n",x_coordinate,y_coordinate);
-    cv::Point textOrg(x_coordinate-rect.width/5,y_coordinate);
-    cv::putText(image, coordinate, textOrg, fontface, scale, cv::Scalar(255,255,0), thickness);
+    int x_coordinate = rect.x+rect.width/2; // define the coordinate display x-position
+    int y_coordinate = rect.y+rect.height/2; // define the coordinate display y-position
+    std::string coordinate = "(" + convertInt(x_coordinate) + "," + convertInt(y_coordinate) + ")"; // display the coordinates
+    int fontface = cv::FONT_HERSHEY_SIMPLEX; // use OpenCV's built-in Hershey Simplex font
+    double scale = 0.6; // set the size of the font
+    int thickness = 2; // set the thickness of the font
+    printf("(%i,%i)\n",x_coordinate,y_coordinate); // print the coordinate in the console
+    cv::Point textOrg(x_coordinate-rect.width/5,y_coordinate); // define the position at which to position the coordinates
+    cv::putText(image, coordinate, textOrg, fontface, scale, cv::Scalar(255,255,0), thickness); // display the coordinates
 }
 // sharpens the image to make object detection easier
 void sharpen(const cv::Mat &image, cv::Mat &result, int strength=1.0) {
@@ -97,19 +97,19 @@ void increaseContrast(cv::Mat &image, float alpha) {
 }
 // defines the area of interest and histogram of first frame
 void initialize(cv::Mat &image) {
-    imageROI = image(rect);
-    colorhist = hc.getHueHistogram(imageROI);
-    finder.setHistogram(colorhist);
-    cv::rectangle(image,rect,cv::Scalar(255,255,0),2);
-    printCoordinate(image);
+    imageROI = image(rect); // define region of interest within the rectangle's boundaries
+    colorhist = hc.getHueHistogram(imageROI); // find the ROI's hue histogram
+    finder.setHistogram(colorhist); // record the ROI's hue histogram
+    cv::rectangle(image,rect,cv::Scalar(255,255,0),2); // draw the rectangle
+    printCoordinate(image); // display the rectangle's coordinates
 }
-// applies mean shift algorithm to find the object and draw a new rectangle
+// applies mean-shift algorithm to find the object and draw a new rectangle
 void drawNewRectangle(cv::Mat &image, cv::Rect& rect) {
     cv::cvtColor(image,hsv,CV_BGR2HSV); // convert image to hsv
     result = finder.find(hsv); // find the pixels that best match the histogram
     cv::meanShift(result,rect,criteria); // use mean-shift to move the rectangle
     cv::rectangle(image,rect,cv::Scalar(200,255,0),3); // draw the new rectangle
-    printCoordinate(image);
+    printCoordinate(image); // display the rectangle's coordinates
 }
 
 int main() {
