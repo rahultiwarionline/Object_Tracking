@@ -58,8 +58,8 @@ string convertInt(int number) {
 }
 // prints the coordinate of the drawn rectangle
 void printCoordinate(cv::Mat &image) {
-    int x_coordinate = rect.x+rect.width/2; // define the coordinate display x-position
-    int y_coordinate = rect.y+rect.height/2; // define the coordinate display y-position
+    int x_coordinate = rect.x+rect.width/2; // define the coordinate display's x-position
+    int y_coordinate = rect.y+rect.height/2; // define the coordinate display's y-position
     std::string coordinate = "(" + convertInt(x_coordinate) + "," + convertInt(y_coordinate) + ")"; // display the coordinates
     int fontface = cv::FONT_HERSHEY_SIMPLEX; // use OpenCV's built-in Hershey Simplex font
     double scale = 0.6; // set the size of the font
