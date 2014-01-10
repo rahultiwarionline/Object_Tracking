@@ -62,8 +62,8 @@ void printCoordinate(cv::Mat &image) {
     int y_coordinate = rect.y+rect.height/2; // define the coordinate display's y-position
     std::string coordinate = "(" + convertInt(x_coordinate) + "," + convertInt(y_coordinate) + ")"; // display the coordinates
     int fontface = cv::FONT_HERSHEY_SIMPLEX; // use OpenCV's built-in Hershey Simplex font
-    double scale = 0.6; // set the size of the font
-    int thickness = 2; // set the thickness of the font
+    double scale = 0.6; // set the size of the coordinate display's font
+    int thickness = 2; // set the thickness of the coordinate display's font
     printf("(%i,%i)\n",x_coordinate,y_coordinate); // print the coordinate in the console
     cv::Point textOrg(x_coordinate-rect.width/5,y_coordinate); // define the position at which to position the coordinates
     cv::putText(image, coordinate, textOrg, fontface, scale, cv::Scalar(255,255,0), thickness); // display the coordinates
