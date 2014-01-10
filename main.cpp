@@ -23,6 +23,7 @@ cv::Rect rect; // stores the drawn rectangle
 bool drag = false; // test if user is dragging the mouse
 bool rectangleDrawn = false; // test if a rectangle has been drawn
 
+// allows user to click and drag a box around desired object
 void mouseEvent(int event, int x, int y, int flags, void* param) {
     if (event == CV_EVENT_LBUTTONDOWN && !drag && !rectangleDrawn) {
         point1 = cv::Point(x,y);
