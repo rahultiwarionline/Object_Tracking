@@ -115,7 +115,7 @@ void drawNewRectangle(cv::Mat &image, cv::Rect& rect) {
 
 int main() {
     cv::VideoCapture webcam(0); // default at 0
-    static bool firstPass = true;
+    static bool firstPass = true; // image has not been initialized
     if(webcam.isOpened() == false) { // if webcam not detected...
         // print out an error message
         std::cout << "Webcam not accessed successfully.\n\n" << std::endl;
