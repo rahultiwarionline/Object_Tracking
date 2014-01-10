@@ -60,7 +60,7 @@ string convertInt(int number) {
 void printCoordinate(cv::Mat &image) {
     int x_coordinate = rect.x+rect.width/2; // define the coordinate display's x-position
     int y_coordinate = rect.y+rect.height/2; // define the coordinate display's y-position
-    std::string coordinate = "(" + convertInt(x_coordinate) + "," + convertInt(y_coordinate) + ")"; // display the coordinates
+    std::string coordinate = "(" + convertInt(x_coordinate) + "," + convertInt(y_coordinate) + ")"; // define the coordinate string
     int fontface = cv::FONT_HERSHEY_SIMPLEX; // use OpenCV's built-in Hershey Simplex font
     double scale = 0.6; // set the size of the coordinate display's font
     int thickness = 2; // set the thickness of the coordinate display's font
