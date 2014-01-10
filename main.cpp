@@ -136,7 +136,7 @@ int main() {
         }
         cv::namedWindow("Processed Image"); // create a window in which to display the video
         cv::imshow("Processed Image",image); // display image in the "result" window
-        cvSetMouseCallback("Processed Image",mouseEvent,0); // read and respond to mouse inputs
+        cvSetMouseCallback("Processed Image",mouseEvent,0); // read and respond to mouse input
         keyCheck = cv::waitKey(10); // check for "Enter" key every 10 milliseconds
     }
 }
