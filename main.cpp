@@ -106,11 +106,27 @@ void initialize(cv::Mat &image) {
 }
 // applies mean-shift algorithm to find the object and draw a new rectangle
 void drawNewRectangle(cv::Mat &image, cv::Rect& rect) {
+    cv::Mat old_image = cv::Mat::zeros(image.size(),image.type()); //stores old image coordinates
+    old_image = image
     cv::cvtColor(image,hsv,CV_BGR2HSV); // convert image to hsv
     result = finder.find(hsv); // find the pixels that best match the histogram
     cv::meanShift(result,rect,criteria); // use mean-shift to move the rectangle
     cv::rectangle(image,rect,cv::Scalar(200,255,0),3); // draw the new rectangle
+    findDisplacement(image,old_image)
     printCoordinate(image); // display the rectangle's coordinates
+}
+
+	
+}
+//creates displacement vector to be emulated in by quadcopter
+void findDisplacement(cv::Mat &image, cv::Mat &old_image){
+	old_image - image //I want to subtract the two matrices to find displacement, this is probably wrong
+	
+    	
+    
+	
+	
+	
 }
 
 int main() {
